@@ -242,6 +242,47 @@ class MyTCPHandler(socketserver.BaseRequestHandler):
 
         return self.prepare_file(file, replace_dict)
 
+    def prepare_view_assignments_page(self, file, replace_dict, database, user_info, class_id):
+        users_collection = database["users"]
+        class_collection = database["classes"]
+        #
+        user_dbinfo = users_collection.find_one({"username": user_info['username']})
+        class_info = class_collection.find_one({"_id": int(class_id)})
+        #
+
+        if 'assignments' not in class_info:
+            replace_dict['assignments_section'] = "You're all caught up!"
+            return self.prepare_file(file, replace_dict)
+
+
+        assignments_list = class_info['assignments']
+        #
+        assignment_html_string = ''
+        #
+
+
+        # for key, val in assignments_list['answers'].items():
+
+        iter = 0
+        for assignment in assignments_list:
+            #
+            assignment_name = f'Assignment {iter}'
+            if "name" in assignment:
+                assignment_name = assignment['name']
+            #
+            assignment_element = \
+            f'<div class ="assignment-item">\
+            <div class ="assignment-name">{assignment_name}</div>\
+            <div class ="question-count"># Questions: {len(assignment["questions"])}</div>\
+            <button class="take-assignment" data-class-assignment-id="{class_info["_id"]}_{iter}">Take Assignment</button></div>'
+            #
+            assignment_html_string = ''.join(assignment_html_string + assignment_element)
+            #
+            iter += 1
+        #
+        file = file.replace("{{assignments_section}}", assignment_html_string)
+        return self.prepare_file(file, replace_dict)
+
     def handle(self):  # Override Method
         received_data = self.request.recv(2048)
 
@@ -287,7 +328,7 @@ class MyTCPHandler(socketserver.BaseRequestHandler):
         user_info = {}
 
         if 'Cookie' in headers:
-            print(headers['Cookie'])
+            # print(headers['Cookie'])
             cookie_dict = self.parse_cookies(headers['Cookie'])
 
         if 'visits' in cookie_dict:
@@ -442,6 +483,50 @@ class MyTCPHandler(socketserver.BaseRequestHandler):
                     f"X-Content-Type-Options: nosniff\r\n\r\n"
                     f"{ret_html}".encode()
                 )
+            elif "/view_assignments" in request_path and '.css' not in request_path and '.js' not in request_path:
+                if not user_info['logged_in']:
+                    #
+                    ret_html = self.prepare_file(
+                        website_files['login_screen.html'],
+                        {'login_status': ''}
+                    )
+                    #
+                    self.request.sendall(
+                        f"HTTP/1.1 200 OK\r\n"
+                        f"Content-Type: text/html; charset=utf-8\r\n"
+                        f"Content-Length: {len(ret_html)}\r\n"
+                        f"{cookie_header}\r\n"
+                        f"X-Content-Type-Options: nosniff\r\n\r\n"
+                        f"{ret_html}".encode()
+                    )
+                class_id = int(request_path.split("/")[2])
+                class_database_info = class_collection.find_one({'_id': class_id})
+                if {'username': user_info['username']} not in class_database_info['members']:
+                    self.request.sendall(
+                        "HTTP/1.1 403 Request Rejected\r\n"
+                        "Content-Type:text/plain\r\n"
+                        "Content-Length:26\r\n\r\n"
+                        "The requested was rejected".encode())
+                    return
+                #
+                #
+                ret_html = self.prepare_view_assignments_page(
+                    website_files['view_assignments_page.html'],
+                    {'class_name': class_database_info['classname'],
+                     'logged_user': user_info['username'],
+                     'is_hidden': 'hidden'},
+                    db,
+                    user_info,
+                    class_id
+                )
+                self.request.sendall(
+                    f"HTTP/1.1 200 OK\r\n"
+                    f"Content-Type: text/html; charset=utf-8\r\n"
+                    f"Content-Length: {len(ret_html)}\r\n"
+                    f"{cookie_header}\r\n"
+                    f"X-Content-Type-Options: nosniff\r\n\r\n"
+                    f"{ret_html}".encode()
+                )
             elif "/class/" in request_path: #/class/13
                 class_id = int(request_path.split("/")[2])
                 if not user_info['logged_in']:
@@ -507,6 +592,15 @@ class MyTCPHandler(socketserver.BaseRequestHandler):
                     f"Content-Type: text/css; charset=utf-8\r\n"
                     f"X-Content-Type-Options: nosniff"
                     f"\r\n\r\n{website_files['create_assignment_page.css']}".encode()
+                )
+            elif request_path == "/view_assignments_page.css":
+                # serve CSS
+                self.request.sendall(
+                    f"HTTP/1.1 200 OK\r\n"
+                    f"Content-Length: {len(website_files['view_assignments_page.css'])}\r\n"
+                    f"Content-Type: text/css; charset=utf-8\r\n"
+                    f"X-Content-Type-Options: nosniff"
+                    f"\r\n\r\n{website_files['view_assignments_page.css']}".encode()
                 )
             elif request_path == "/main_page.css":
                 # serve CSS
@@ -1059,12 +1153,17 @@ class MyTCPHandler(socketserver.BaseRequestHandler):
                         else:
                             form_data['answers'][int(question_num)][int(answer_num)] = entry_content[0:entry_content.rfind(b'\r\n--')].decode()
                         #
+                    elif "Content-Disposition" in entry_headers and 'name="assignment_name' in entry_headers['Content-Disposition']:
+                        #
+                        form_data['name'] = entry_content[0:entry_content.rfind(b'\r\n--')].decode()
 
                 # TODO: MAKE SURE NO QUESTIONS OR ANSWERS ARE BLANK
+                # TODO: write a websocket implementation to update assignments tab in real time
 
                 print(form_data)
 
                 new_assignment = {}
+                new_assignment['name'] = form_data['name']
                 new_assignment['questions'] = {str(k): v for k, v in form_data['questions'].items()}
                 new_assignment['answers'] = {str(k): {str(k2): v2 for k2, v2 in v.items()} for k, v in
                                              form_data['answers'].items()}

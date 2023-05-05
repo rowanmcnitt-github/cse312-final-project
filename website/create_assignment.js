@@ -1,6 +1,6 @@
 const addQuestionBtn = document.querySelector('.add-question-btn');
-const form = document.querySelector('#login-form');
-let questionCount = 1;
+const form = document.querySelector('#create-assignment-form');
+let questionCount = 0;
 
 addQuestionBtn.addEventListener('click', () => {
   questionCount++;
@@ -18,5 +18,6 @@ addQuestionBtn.addEventListener('click', () => {
     <input type="text" id="answer-${questionCount}_3" name="answer-${questionCount}_3" /><br />
   `;
 
-  form.insertBefore(newQuestion, form.lastElementChild);
+  const lastQuestion = form.querySelector('.question-container:last-of-type');
+  lastQuestion.after(newQuestion);
 });

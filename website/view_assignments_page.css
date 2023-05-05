@@ -1,0 +1,138 @@
+body {
+	margin: 0;
+	padding: 0;
+	font-family: Arial, sans-serif;
+}
+
+.navigation {
+	background-color: #333;
+	overflow: hidden;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	padding: 3px;
+	padding-left: 20px;
+	padding-right: 20px;
+	color: white;
+}
+
+.navigation a {
+	color: white;
+	text-decoration: none;
+	margin-right: 20px;
+}
+
+.navigation a:hover {
+	color: #ddd;
+}
+
+
+.class-navigation {
+	background-color: #626262;
+	overflow: hidden;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	padding: 10px;
+	padding-left: 20px;
+	padding-right: 20px;
+	color: white;
+}
+
+.class-navigation a {
+	color: white;
+	text-decoration: none;
+	margin-right: 20px;
+}
+
+.navigation a:hover {
+	color: #ddd;
+}
+
+
+h2 {
+  margin-bottom: 20px;
+}
+
+label {
+  display: block;
+  margin-bottom: 10px;
+}
+
+input[type="text"] {
+  width: 80%;
+  padding: 10px;
+  margin-bottom: 20px;
+  border: 2px solid #ccc;
+  border-radius: 4px;
+}
+
+button {
+  padding: 10px 20px;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #3e8e41;
+}
+
+.assignments-container {
+	display: flex;
+	flex-direction: column;
+	overflow-x: scroll;
+	padding: 20px;
+	align-items: center;
+	scrollbar-width: none;
+	-ms-overflow-style: none;
+}
+
+.assignments-container::-webkit-scrollbar {
+	width: 0px;
+	background: transparent;
+}
+
+.assignment-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #f2f2f2;
+    margin-bottom: 20px;
+    padding: 20px;
+    border-radius: 5px;
+    min-width: 800px;
+}
+
+
+.assignment-item .assignment-name {
+    font-weight: bold;
+    font-size: 20px;
+    margin-right: auto;
+}
+
+.assignment-item .question-count {
+    font-size: 14px;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+.assignment-item .take-assignment {
+    background-color: #98d49a;
+    border: none;
+    color: white;
+    padding: 10px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-left: auto;
+}
+
+.assignment-item .take-assignment:hover {
+	background-color: #00d507;
+}

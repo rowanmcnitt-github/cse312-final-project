@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Bottom Hat</title>
+    <link rel="stylesheet" href="/view_assignments_page.css">
+  </head>
+  <body>
+    <div class="navigation">
+      <h1>Bottom Hat</h1>
+      <h3>Logged in as: {{logged_user}}</h3>
+    </div>
+    <div class="class-navigation">
+      <h2>{{class_name}}</h2>
+      <h2></h2>
+      <h2></h2>
+      <h2></h2>
+      <h2></h2>
+      <h3><a href="/class/{{class_id}}/create_assignment" class="assignments-btn" {{is_hidden}}>Create Assignment</a></h3>
+      <h3><a href="#" class="assignments-btn">Assignments</a></h3>
+      <h3><a href="#" class="my-grades-btn">My Grades</a></h3>
+    </div>
+    <main>
+      {{assignments_section}}
+    </main>
+  </body>
+</html>
