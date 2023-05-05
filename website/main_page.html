@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Bottom Hat</title>
+	<link rel="stylesheet" href="main_page.css">
+	<script src="AJAX_impl.js"></script>
+</head>
+<body>
+	<div class="navigation">
+		<h1>Bottom Hat</h1>
+		<h3>Logged in as: {{logged_user}}</h3>
+		<div>
+			<a href="create_class">Create Class</a>
+		</div>
+	</div>
+
+	<main>
+		<section class="classes-container" id="browse-classes">
+		  <h2>Browse Classes</h2>
+		  <!-- list of classes -->
+		  <div class="classes-container">
+			  {{browse-class-container}}
+		  </div>
+		</section>
+
+		<section class="classes-container" id="view-enrolled-classes">
+		  <h2>My Enrolled Classes</h2>
+		  <!-- list of enrolled classes -->
+		  <div class="classes-container">
+			  {{enrolled-class-container}}
+		  </div>
+		</section>
+
+		<section class="classes-container" id="view-my-classes">
+		  <h2>My Classes</h2>
+		  <!-- list of my classes -->
+		  <div class="classes-container">
+			  {{my-class-container}}
+		  </div>
+		</section>
+
+  	</main>
+</body>
+</html>
+
+<!--for reference:-->
+<!--			<div class="class-item">-->
+<!--			  <div class="class-name">Class 1</div>-->
+<!--			  <div class="capacity">Capacity: 20/20</div>-->
+<!--			  <button class="join-button">Join</button>-->
+<!--			</div>-->

@@ -1,0 +1,40 @@
+<html>
+<head>
+    <title>CSE312 HW4 Website</title>
+    <link rel="stylesheet" type="text/css" href="style.css"/>
+    <script src="new-javascript.js"></script>
+</head>
+<!--<body onload="welcome();">-->
+<body onload="welcome();">
+
+<h1><i>Welcome</i> to the R-Forum Chat App! </h1>
+<h3>{{login_status}}</h3>
+<!---->
+<form action="/user-login-register" id="login-form" method="post" enctype="multipart/form-data", class="{{form_class}}">
+    <label for="username">Username:</label><br>
+    <input type="text" id="username" name="username"><br><br>
+    <label for="password">Password:</label><br>
+    <input type="password" id="password" name="password"><br><br>
+    <button type="submit" name="login_button" value="login">Login</button>
+    <b><i> or </i></b>
+    <button type="submit" name="register_button" value="register">Register</button>
+</form>
+<!---->
+<p>{{lr_status}}</p>
+<!---->
+<p>{{page_visit_counter}}</p>
+<br>
+<br>
+<p id="paragraph"></p>
+
+<!--new HW3 content-->
+<label for="chat-comment">Chat: </label>
+<input id="chat-token" name="chat-token" type="hidden" value="{{chat_token}}">
+<input id="chat-comment" type="text" name="comment">
+
+<button onclick="sendMessage()">Send</button>
+
+<div id="chat"></div>
+
+</body>
+</html>

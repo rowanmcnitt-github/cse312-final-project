@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Bottom Hat</title>
+  <link rel="stylesheet" href="/create_assignment_page.css">
+</head>
+<body>
+  <div class="navigation">
+    <h1>Bottom Hat</h1>
+    <h3>Logged in as: {{logged_user}}</h3>
+  </div>
+    <div class="class-navigation">
+        <h2>{{class_name}}</h2>
+    <h2></h2>
+    <h2></h2>
+    <h2></h2>
+    <h2></h2>
+    <h3><a href="create_assignment" class="assignments-btn">Create Assignment</a></h3>
+    <h3><a href="#" class="assignments-btn">Assignments</a></h3>
+    <h3><a href="#" class="my-grades-btn">My Grades</a></h3>
+    </div>
+  <main>
+    <div class="question-container">
+      <h2>Question 1:</h2>
+      <label for="question1">Question:</label>
+      <input type="text" id="question1" name="question1"><br><br>
+      <label for="answer1">Correct Answer:</label>
+      <input type="text" id="answer1" name="answer1"><br><br>
+      <label for="answer2">Answer 2:</label>
+      <input type="text" id="answer2" name="answer2"><br><br>
+      <label for="answer3">Answer 3:</label>
+      <input type="text" id="answer3" name="answer3"><br><br>
+      <label for="answer4">Answer 4:</label>
+      <input type="text" id="answer4" name="answer4"><br><br>
+    </div>
+  </main>
+  <button class="add-question-btn">Add Question</button>
+  <script src="/create_assignment.js"></script>
+</body>
+</html>

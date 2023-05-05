@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Bottom Hat</title>
+    <link rel="stylesheet" type="text/css" href="style.css" />
+    <script src="new-javascript.js"></script>
+  </head>
+  <body>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+    <h1><i>Bottom Hat</i></h1>
+    <form action="/user-login-register" id="login-form" method="post" enctype="multipart/form-data" class="{{form_class}}">
+      <h3><label for="username">Username</label></h3>
+      <input type="text" id="username" name="username" /><br /><br />
+        <h3><label for="password">Password</label></h3>
+      <input type="password" id="password" name="password" /><br /><br />
+      <div class="login-buttons">
+        <button type="submit" name="login_button" value="login">Login</button>
+        <b><i> or </i></b>
+        <button type="submit" name="register_button" value="register">Register</button>
+      </div>
+    </form>
+    <p class="login_status"><i>{{login_status}}</i></p>
+    <br /><br />
+  </body>
+</html>

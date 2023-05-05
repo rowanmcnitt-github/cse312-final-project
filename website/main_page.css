@@ -1,0 +1,105 @@
+body {
+	margin: 0;
+	padding: 0;
+	font-family: Arial, sans-serif;
+}
+
+.login_status {
+    color: rgb(126, 42, 42);
+    background-color: green;
+}
+
+.navigation {
+	background-color: #333;
+	overflow: hidden;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	padding: 20px;
+	color: white;
+}
+
+.navigation a {
+	color: white;
+	text-decoration: none;
+	margin-right: 20px;
+}
+
+.navigation a:hover {
+	color: #ddd;
+}
+
+.classes-container {
+	display: flex;
+	flex-direction: column;
+	overflow-x: scroll;
+	padding: 20px;
+	align-items: center;
+	scrollbar-width: none;
+	-ms-overflow-style: none;
+}
+
+.classes-container::-webkit-scrollbar {
+	width: 0px;
+	background: transparent;
+}
+
+.class-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #f2f2f2;
+    margin-bottom: 20px;
+    padding: 20px;
+    border-radius: 5px;
+    min-width: 800px;
+}
+
+
+.class-item .class-name {
+    font-weight: bold;
+    font-size: 20px;
+    margin-right: auto;
+}
+
+.class-item .capacity {
+    font-size: 14px;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+.class-item .join-button {
+    background-color: #98d49a;
+    border: none;
+    color: white;
+    padding: 10px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-left: auto;
+}
+
+.class-item .enter-button {
+    background-color: #bfbfbf;
+    border: none;
+    color: white;
+    padding: 10px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-left: auto;
+}
+
+
+.class-item .join-button:hover {
+	background-color: #00d507;
+}
+.class-item .enter-button:hover {
+	background-color: #959595;
+}
