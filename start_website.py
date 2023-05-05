@@ -730,7 +730,7 @@ class MyTCPHandler(socketserver.BaseRequestHandler):
                     f"{all_messages_decoded}".encode())
 
                 return
-        if request_type == 'POST':
+        elif request_type == 'POST':
             if request_path == '/user-login-register':
                 content_boundary = headers['Content-Type'].split("boundary=")[1]
                 # use this to get all the parts
@@ -910,7 +910,7 @@ class MyTCPHandler(socketserver.BaseRequestHandler):
                             f"{ret_html}".encode()
                         )
                         return
-            if request_path == '/create-class':
+            elif request_path == '/create-class':
                 content_boundary = headers['Content-Type'].split("boundary=")[1]
                 # use this to get all the parts
                 cb_bytes = bytearray(content_boundary, 'utf-8')
@@ -1004,7 +1004,101 @@ class MyTCPHandler(socketserver.BaseRequestHandler):
                     f"{ret_html}".encode()
                 )
                 return
-            if request_path == '/join-class':
+            elif 'create-assignment' in request_path:
+                print(request_path)
+
+                # /class/15/create-assignment
+                class_id = request_path.split("/")[2]
+                print("Class ID:" + class_id)
+                #
+                content_boundary = headers['Content-Type'].split("boundary=")[1]
+                # use this to get all the parts
+                cb_bytes = bytearray(content_boundary, 'utf-8')
+                split_sections = []
+                start_index = 0
+                #
+                while buffered_data.find(cb_bytes, start_index + 1) != -1:
+                    end_index = buffered_data.find(cb_bytes, start_index + 1)
+                    split_sections.append(bytearray(buffered_data[start_index:end_index]))
+                    start_index = end_index
+                #
+                split_sections.append(bytearray(buffered_data[start_index:]))
+
+                form_data = {}
+
+                form_data['questions'] = {}
+                form_data['answers'] = {}
+
+                # dict for question-answer pairs, form_data['questions'] = array, questions[0], etc.
+                # dict for answers, form_data['answers'] = array answers[0] = array['answer 1', 'answer 2', etc.]
+
+                print(split_sections)
+                for entry in split_sections:
+                    # entry_headers = entry[0:entry.find(b'\r\n\r\n')].decode().split('\r\n')
+                    entry_headers = self.parse_headers(entry[0:entry.find(b'\r\n\r\n')])
+
+                    entry_content = entry[entry.find(b'\r\n\r\n') + len(b'\r\n\r\n'):]
+
+                    # name = "question-1"\r\n\r\n
+                    if "Content-Disposition" in entry_headers and 'name="question' in entry_headers['Content-Disposition']:
+                        #
+                        question_sect = entry[entry.rfind(b'name='):entry.rfind(b'\r\n\r\n')]
+                        question_num = question_sect.decode().split("-")[1].replace('"', "")
+                        #
+                        form_data['questions'][int(question_num)] = entry_content[0:entry_content.rfind(b'\r\n--')].decode()
+                        #
+                    elif "Content-Disposition" in entry_headers and 'name="answer' in entry_headers['Content-Disposition']:
+                        #
+                        answer_sect = entry[entry.rfind(b'name='):entry.rfind(b'\r\n\r\n')]
+                        question_num = answer_sect.decode()[answer_sect.rfind(b'-')+1:answer_sect.rfind(b'-')+2]
+                        answer_num = answer_sect.decode()[answer_sect.rfind(b'_')+1:answer_sect.rfind(b'_')+2]
+                        #
+                        if int(question_num) not in form_data['answers']:
+                            form_data['answers'][int(question_num)] = {int(answer_num): entry_content[
+                                                                      0:entry_content.rfind(b'\r\n--')].decode()}
+                        else:
+                            form_data['answers'][int(question_num)][int(answer_num)] = entry_content[0:entry_content.rfind(b'\r\n--')].decode()
+                        #
+
+                # TODO: MAKE SURE NO QUESTIONS OR ANSWERS ARE BLANK
+
+                print(form_data)
+
+                new_assignment = {}
+                new_assignment['questions'] = {str(k): v for k, v in form_data['questions'].items()}
+                new_assignment['answers'] = {str(k): {str(k2): v2 for k2, v2 in v.items()} for k, v in
+                                             form_data['answers'].items()}
+
+                class_collection.update_one(
+                    {"_id": int(class_id)},
+                    {"$push": {
+                        "assignments": new_assignment
+                    }}
+                )
+                time.sleep(0.1)
+
+                class_database_info = class_collection.find_one({'_id': int(class_id)})
+                #
+                print("successfully created assignment")
+                #
+                time.sleep(0.4)
+                ret_html = self.prepare_file(
+                    website_files['class_page.html'],
+                    {'class_name': class_database_info['classname'],
+                     'logged_user': user_info['username'],
+                     'class_id': str(class_id),
+                     'is_hidden': ''},
+                )
+                self.request.sendall(
+                    f"HTTP/1.1 200 OK\r\n"
+                    f"Content-Type: text/html; charset=utf-8\r\n"
+                    f"Content-Length: {len(ret_html)}\r\n"
+                    f"{cookie_header}\r\n"
+                    f"X-Content-Type-Options: nosniff\r\n\r\n"
+                    f"{ret_html}".encode()
+                )
+                return
+            elif request_path == '/join-class':
                 content_length = int(headers['Content-Length'])
                 post_data = buffered_data[buffered_data.find(b'\r\n\r\n') + len(b'\r\n\r\n'):].decode('utf-8')
                 class_data = json.loads(post_data)

@@ -1,24 +1,22 @@
-let questionNumber = 1;
 const addQuestionBtn = document.querySelector('.add-question-btn');
-const main = document.querySelector('main');
+const form = document.querySelector('#login-form');
+let questionCount = 1;
 
 addQuestionBtn.addEventListener('click', () => {
-  questionNumber++;
-  const questionContainer = document.createElement('div');
-  questionContainer.classList.add('question-container');
-  questionContainer.innerHTML = `
-    <h2>Question ${questionNumber}:</h2>
-    <label for="question${questionNumber}">Question:</label>
-    <input type="text" id="question${questionNumber}" name="question${questionNumber}"><br><br>
-    <label for="answer${questionNumber}_1">Answer 1:</label>
-    <input type="text" id="answer${questionNumber}_1" name="answer${questionNumber}_1"><br><br>
-    <label for="answer${questionNumber}_2">Answer 2:</label>
-    <input type="text" id="answer${questionNumber}_2" name="answer${questionNumber}_2"><br><br>
-    <label for="answer${questionNumber}_3">Answer 3:</label>
-    <input type="text" id="answer${questionNumber}_3" name="answer${questionNumber}_3"><br><br>
-    <label for="answer${questionNumber}_4">Answer 4:</label>
-    <input type="text" id="answer${questionNumber}_4" name="answer${questionNumber}_4"><br><br>
+  questionCount++;
+
+  const newQuestion = document.createElement('div');
+  newQuestion.classList.add('question-container');
+  newQuestion.innerHTML = `
+    <h3><label for="question-${questionCount}">Question ${questionCount}</label></h3>
+    <input type="text" id="question-${questionCount}" name="question-${questionCount}" /><br />
+    <h3><label for="answer-${questionCount}_1">Answer 1 (correct answer)</label></h3>
+    <input type="text" id="answer-${questionCount}_1" name="answer-${questionCount}_1" /><br />
+    <h3><label for="answer-${questionCount}_2">Answer 2</label></h3>
+    <input type="text" id="answer-${questionCount}_2" name="answer-${questionCount}_2" /><br />
+    <h3><label for="answer-${questionCount}_3">Answer 3</label></h3>
+    <input type="text" id="answer-${questionCount}_3" name="answer-${questionCount}_3" /><br />
   `;
-  main.appendChild(questionContainer);
-  main.appendChild(addQuestionBtn);
+
+  form.insertBefore(newQuestion, form.lastElementChild);
 });
