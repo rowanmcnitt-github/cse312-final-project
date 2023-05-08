@@ -4,18 +4,15 @@ body {
 	font-family: Arial, sans-serif;
 }
 
-.login_status {
-    color: rgb(126, 42, 42);
-    background-color: green;
-}
-
 .navigation {
 	background-color: #333;
 	overflow: hidden;
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
-	padding: 20px;
+	padding: 3px;
+	padding-left: 20px;
+	padding-right: 20px;
 	color: white;
 }
 
@@ -29,7 +26,61 @@ body {
 	color: #ddd;
 }
 
-.classes-container {
+
+.class-navigation {
+	background-color: #626262;
+	overflow: hidden;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	padding: 10px;
+	padding-left: 20px;
+	padding-right: 20px;
+	color: white;
+}
+
+.class-navigation a {
+	color: white;
+	text-decoration: none;
+	margin-right: 20px;
+}
+
+.navigation a:hover {
+	color: #ddd;
+}
+
+
+h2 {
+  margin-bottom: 20px;
+}
+
+label {
+  display: block;
+  margin-bottom: 10px;
+}
+
+input[type="text"] {
+  width: 80%;
+  padding: 10px;
+  margin-bottom: 20px;
+  border: 2px solid #ccc;
+  border-radius: 4px;
+}
+
+button {
+  padding: 10px 20px;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #3e8e41;
+}
+
+.assignments-container {
 	display: flex;
 	flex-direction: column;
 	overflow-x: scroll;
@@ -39,12 +90,12 @@ body {
 	-ms-overflow-style: none;
 }
 
-.classes-container::-webkit-scrollbar {
+.assignments-container::-webkit-scrollbar {
 	width: 0px;
 	background: transparent;
 }
 
-.class-item {
+.assignment-item {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -56,21 +107,17 @@ body {
 }
 
 
-.class-item .class-name {
+.assignment-item .assignment-name {
     font-weight: bold;
     font-size: 20px;
     margin-right: auto;
-    width: 300px; /* Set a fixed width for the class name container */
-    display: flex; /* Use flexbox to align items */
-    align-items: center;
 }
 
-.class-item .capacity {
+.assignment-item .grade {
     font-size: 14px;
-    margin-right: auto;
 }
 
-.class-item .join-button {
+.assignment-item .take-assignment {
     background-color: #98d49a;
     border: none;
     color: white;
@@ -81,27 +128,9 @@ body {
     font-size: 16px;
     border-radius: 5px;
     cursor: pointer;
-    margin-left: 20px;
+    margin-left: auto;
 }
 
-.class-item .enter-button {
-    background-color: #bfbfbf;
-    border: none;
-    color: white;
-    padding: 10px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 16px;
-    border-radius: 5px;
-    cursor: pointer;
-    margin-left: 20px;
-}
-
-
-.class-item .join-button:hover {
+.assignment-item .take-assignment:hover {
 	background-color: #00d507;
-}
-.class-item .enter-button:hover {
-	background-color: #959595;
 }

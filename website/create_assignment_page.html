@@ -6,7 +6,9 @@
   </head>
   <body>
     <div class="navigation">
-      <h1>Bottom Hat</h1>
+      <a href ="/">
+        <h1>Bottom Hat</h1>
+      </a>
       <h3>Logged in as: {{logged_user}}</h3>
     </div>
     <div class="class-navigation">
@@ -15,39 +17,35 @@
       <h2></h2>
       <h2></h2>
       <h2></h2>
-      <h3><a href="create_assignment" class="assignments-btn">Create Assignment</a></h3>
-      <h3><a href="#" class="assignments-btn">Assignments</a></h3>
-      <h3><a href="#" class="my-grades-btn">My Grades</a></h3>
+      <h3><a href="create_assignment" class="assignments-btn">Create Question</a></h3>
+      <h3><a href="/class/{{class_id}}" class="assignments-btn">Lobby</a></h3>
+      <h3><a href="/class/{{class_id}}/grades" class="my-grades-btn">Grades</a></h3>
     </div>
     <main>
       <form action="./create-assignment" id="create-assignment-form" method="post" enctype="multipart/form-data">
         <div id="question-list">
           <div class="question-container">
-            <h3><label for="assignment_name">Assignment Name</label></h3>
+            <h3><label for="assignment_name">Question Name</label></h3>
             <input type="text" id="assignment_name" name="assignment_name" /><br />
+
+            <h3><label for="question-1">Question</label></h3>
+            <input type="text" id="question-1" name="question-1" /><br />
+
+            <h3><label for="answer-1_1">Correct Answer</i></label></h3>
+            <input type="text" id="answer-1_1" name="answer-1_1" /><br />
+
+            <h3><label for="answer-1_2">Answer 2</label></h3>
+            <input type="text" id="answer-1_2" name="answer-1_2" /><br />
+
+            <h3><label for="answer-1_3">Answer 3</label></h3>
+            <input type="text" id="answer-1_3" name="answer-1_3" /><br />
+
+            <h3><label for="answer-1_4">Answer 4</label></h3>
+            <input type="text" id="answer-1_4" name="answer-1_4" /><br />
           </div>
-          <!-- more questions will be added here -->
         </div>
-        <button type="submit" name="submit-button" value="submit">Create Assignment</button>
+        <button type="submit" name="submit-button" value="submit">Open Question</button>
       </form>
-<!--      <form action="./create-assignment" id="create-assignment-form" method="post" enctype="multipart/form-data">-->
-<!--        <div class="question-container">-->
-<!--          <h3><label for="assignment_name">Assignment Name</label></h3>-->
-<!--          <input type="text" id="assignment_name" name="assignment_name" /><br />-->
-<!--          <h3><label for="question-1">Question 1</label></h3>-->
-<!--          <input type="text" id="question-1" name="question-1" /><br />-->
-<!--          <h3><label for="answer-1_1">Answer 1 (correct answer)</label></h3>-->
-<!--          <input type="text" id="answer-1_1" name="answer-1_1" /><br />-->
-<!--          <h3><label for="answer-1_2">Answer 2</label></h3>-->
-<!--          <input type="text" id="answer-1_2" name="answer-1_2" /><br />-->
-<!--          <h3><label for="answer-1_3">Answer 3</label></h3>-->
-<!--          <input type="text" id="answer-1_3" name="answer-1_3" /><br />-->
-<!--        </div>-->
-<!--        &lt;!&ndash; add more questions here &ndash;&gt;-->
-<!--        <button type="submit" name="submit-button" value="submit">Create Assignment</button>-->
-<!--      </form>-->
     </main>
-    <button class="add-question-btn">Add Question</button>
-    <script src="/create_assignment.js"></script>
   </body>
 </html>

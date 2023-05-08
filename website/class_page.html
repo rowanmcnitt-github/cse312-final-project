@@ -7,7 +7,9 @@
 </head>
 <body>
 	<div class="navigation">
-		<h1>Bottom Hat</h1>
+		<a href ="/">
+      	  <h1>Bottom Hat</h1>
+      	</a>
 		<h3>Logged in as: {{logged_user}}</h3>
 	</div>
     <div class="class-navigation">
@@ -16,11 +18,12 @@
 		<h2></h2>
 		<h2></h2>
 		<h2></h2>
-		<h3><a href="/class/{{class_id}}/create_assignment" class="assignments-btn" {{is_hidden}}>Create Assignment</a></h3>
-		<h3><a href="/class/{{class_id}}/view_assignments" class="assignments-btn">Assignments</a></h3>
-		<h3><a href="#" class="my-grades-btn">My Grades</a></h3>
+		<h3><a href="/class/{{class_id}}/create_assignment" class="assignments-btn" {{is_hidden}}>Create Question</a></h3>
+		<h3><a href="/class/{{class_id}}" class="assignments-btn">Lobby</a></h3>
+		<h3><a href="/class/{{class_id}}/grades" class="my-grades-btn">Grades</a></h3>
     </div>
 	<main>
+		<h3>Lobby</h3>
   	</main>
 </body>
 </html>

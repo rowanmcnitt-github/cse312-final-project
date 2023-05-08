@@ -2,8 +2,8 @@
 <html>
   <head>
     <title>Bottom Hat</title>
-    <link rel="stylesheet" href="/view_assignments_page.css">
-    <script src ="/view_assignments_page.js"></script>
+    <link rel="stylesheet" href="/complete_question_page.css">
+    <script src="/complete_question_page.js"></script>
   </head>
   <body>
     <div class="navigation">
@@ -18,12 +18,11 @@
       <h2></h2>
       <h2></h2>
       <h2></h2>
-      <h3><a href="/class/{{class_id}}/create_assignment" class="assignments-btn" {{is_hidden}}>Create Question</a></h3>
       <h3><a href="/class/{{class_id}}" class="assignments-btn">Lobby</a></h3>
       <h3><a href="/class/{{class_id}}/grades" class="my-grades-btn">Grades</a></h3>
     </div>
     <main>
-      {{assignments_section}}
+        {{question_form}}
     </main>
   </body>
 </html>
